@@ -38,9 +38,9 @@ public class Analyser {
 
                     addOutputLine(avg, output);
                 } else if (currQueryLine.getServiceId().equals("*") && !currQueryLine.getQuestionTypeId().equals("*")) {
-                    List<WaitingTimeline> listFilteredByServiceAndQuestion = filterWaitingTimelinesByQuestion(list, currQueryLine);
+                    List<WaitingTimeline> listFilteredByQuestion = filterWaitingTimelinesByQuestion(list, currQueryLine);
 
-                    OptionalDouble avg = getAverageWaitingTimeFromList(listFilteredByServiceAndQuestion);
+                    OptionalDouble avg = getAverageWaitingTimeFromList(listFilteredByQuestion);
 
                     addOutputLine(avg, output);
                 } else if (!currQueryLine.getServiceId().equals("*") && currQueryLine.getQuestionTypeId().equals("*")) {
@@ -93,7 +93,7 @@ public class Analyser {
 
     private static StringBuilder addOutputLine (OptionalDouble optionalDouble, StringBuilder output) {
         if (optionalDouble.isPresent()) {
-            output.append((int) optionalDouble.getAsDouble()).append("\n");
+            output.append(Math.round(optionalDouble.getAsDouble())).append("\n");
         } else {
             output.append("-").append("\n");
         }
